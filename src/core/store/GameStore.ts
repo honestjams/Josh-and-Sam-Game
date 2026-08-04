@@ -1,4 +1,5 @@
 import { CHARACTERS, QUESTS } from '@/data';
+import { SELECTABLE_HERO_IDS, DEFAULT_HERO_ID } from '@/data/party';
 import type { Condition, Consequence, Id, QuestState } from '@/data/types';
 import type {
   CharacterSaveState,
@@ -16,8 +17,6 @@ const NEW_GAME_START: WorldPosition = {
   tileY: 12,
   facing: 'down',
 };
-
-const HERO_ID: Id = 'char.hero';
 
 /**
  * The single source-of-truth game store. It is deliberately Phaser-free and
@@ -37,19 +36,31 @@ export class GameStore {
 
   // --- Lifecycle ----------------------------------------------------------
 
-  /** Reset to a fresh new-game state (hero only, starter kit). */
-  newGame(name = 'Adventurer'): void {
+  /**
+   * Reset to a fresh new-game state around the chosen hero. The two heroes the
+   * player did NOT pick get their recruit quests seeded as active, so the quest
+   * log points toward meeting them later in the story.
+   */
+  newGame(heroId: Id = DEFAULT_HERO_ID, name = 'Adventurer'): void {
+    const hero = CHARACTERS[heroId] ? heroId : DEFAULT_HERO_ID;
     this.name = name;
     this.gold = 20;
-    this.flags = {};
-    this.roster = [this.freshCharacter(HERO_ID)];
-    this.activeParty = [HERO_ID];
+    this.flags = { chosen_hero: true };
+    this.setFlag(`hero_${hero}`, true);
+    this.roster = [this.freshCharacter(hero)];
+    this.activeParty = [hero];
     this.inventory = [
       { itemId: 'item.minor-potion', qty: 2 },
       { itemId: 'item.glow-cap', qty: 1 },
     ];
     this.quests = [];
     this.position = { ...NEW_GAME_START };
+
+    for (const otherId of SELECTABLE_HERO_IDS) {
+      if (otherId === hero) continue;
+      const quest = CHARACTERS[otherId]?.recruitQuestId;
+      if (quest) this.startQuest(quest);
+    }
   }
 
   private freshCharacter(id: Id): CharacterSaveState {
@@ -208,9 +219,9 @@ export class GameStore {
   /**
    * Apply a consequence. Returns an optional side-effect signal the caller
    * (a scene) may act on but that is not itself game state — e.g. opening a
-   * shop. All persistent mutation happens here.
+   * shop or starting a battle. All persistent mutation happens here.
    */
-  applyConsequence(c: Consequence): { openShop?: Id } | void {
+  applyConsequence(c: Consequence): ConsequenceSideEffect | void {
     switch (c.type) {
       case 'set-flag':
         this.setFlag(c.flag, c.value);
@@ -238,8 +249,16 @@ export class GameStore {
         return;
       case 'open-shop':
         return { openShop: c.shopId };
+      case 'start-battle':
+        return { startBattle: { enemyIds: c.enemyIds, isMiniboss: c.isMiniboss, victoryFlag: c.victoryFlag } };
     }
   }
+}
+
+/** Non-persistent signals a consequence may raise for a scene to act on. */
+export interface ConsequenceSideEffect {
+  openShop?: Id;
+  startBattle?: { enemyIds: Id[]; isMiniboss?: boolean; victoryFlag?: string };
 }
 
 /** Process-wide singleton store. Scenes read/write through this instance. */

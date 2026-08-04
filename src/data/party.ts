@@ -5,16 +5,52 @@ import type { CharacterDefinition, Id } from './types';
  * (hero + two active allies). Only the hero starts in the party; the Leaf is
  * recruited in the vertical slice via `quest.recruit-leaf`.
  */
+/**
+ * The three heroes offered at the start. The player picks one; the two they
+ * don't choose are recruited later in the story (each has a recruit quest).
+ */
+export const SELECTABLE_HERO_IDS: Id[] = ['char.squirrel', 'char.gnome', 'char.woodelf'];
+
+/** Fallback hero used when a save predates selection or a test omits a choice. */
+export const DEFAULT_HERO_ID: Id = 'char.squirrel';
+
 export const CHARACTERS: Record<Id, CharacterDefinition> = {
-  'char.hero': {
-    id: 'char.hero',
-    name: 'Sam',
-    role: 'hero',
-    blurb: 'A young adventurer from Mycelia Hollow, brave and a little homesick.',
-    baseStats: { maxHp: 60, maxMp: 12, attack: 12, defense: 8, speed: 10 },
-    growthPerLevel: { maxHp: 8, maxMp: 2, attack: 2, defense: 1, speed: 1 },
-    skillIds: ['skill.slash'],
-    spriteKey: 'char.hero',
+  // --- Selectable heroes ---------------------------------------------------
+  'char.squirrel': {
+    id: 'char.squirrel',
+    name: 'Nutkin the Squirrel',
+    role: 'defender',
+    blurb: 'A brave sword-and-shield squirrel. Tough, loyal, quick on their feet.',
+    baseStats: { maxHp: 64, maxMp: 10, attack: 12, defense: 10, speed: 11 },
+    growthPerLevel: { maxHp: 9, maxMp: 2, attack: 2, defense: 2, speed: 1 },
+    skillIds: ['skill.slash', 'skill.guard-bash'],
+    spriteKey: 'char.squirrel',
+    recruitQuestId: 'quest.recruit-squirrel',
+    selectableHero: true,
+  },
+  'char.gnome': {
+    id: 'char.gnome',
+    name: 'Fizzwick the Gnome',
+    role: 'support',
+    blurb: 'A kindly old gnome brimming with growth magic. Frail, but heals the party.',
+    baseStats: { maxHp: 50, maxMp: 22, attack: 8, defense: 7, speed: 9 },
+    growthPerLevel: { maxHp: 6, maxMp: 4, attack: 1, defense: 1, speed: 1 },
+    skillIds: ['skill.rustle', 'skill.spore-heal'],
+    spriteKey: 'char.gnome',
+    recruitQuestId: 'quest.recruit-gnome',
+    selectableHero: true,
+  },
+  'char.woodelf': {
+    id: 'char.woodelf',
+    name: 'Sylwen the Wood Elf',
+    role: 'striker',
+    blurb: 'A swift wood elf who bends leaf and wind. Hits fast and often, all at once.',
+    baseStats: { maxHp: 54, maxMp: 16, attack: 13, defense: 6, speed: 15 },
+    growthPerLevel: { maxHp: 7, maxMp: 3, attack: 2, defense: 1, speed: 2 },
+    skillIds: ['skill.leaf-cutter', 'skill.gale'],
+    spriteKey: 'char.woodelf',
+    recruitQuestId: 'quest.recruit-woodelf',
+    selectableHero: true,
   },
   'char.leaf': {
     id: 'char.leaf',

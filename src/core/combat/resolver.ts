@@ -84,3 +84,14 @@ export function chooseEnemyAction(intents: EnemyAiIntent[], hpFraction: number, 
 export function xpForNextLevel(level: number): number {
   return Math.round(20 * Math.pow(level, 1.5));
 }
+
+/** The level a character has reached given cumulative XP (level 1 at 0 XP). */
+export function levelFromXp(totalXp: number): number {
+  let level = 1;
+  let needed = 0;
+  while (totalXp >= needed + xpForNextLevel(level)) {
+    needed += xpForNextLevel(level);
+    level += 1;
+  }
+  return level;
+}

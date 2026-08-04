@@ -5,14 +5,23 @@ describe('GameStore save round-trip', () => {
   let store: GameStore;
   beforeEach(() => {
     store = new GameStore();
-    store.newGame('Tester');
+    store.newGame(); // default hero (char.squirrel)
   });
 
-  it('new game seeds the hero, starter items, and gold', () => {
-    expect(store.activeParty).toEqual(['char.hero']);
-    expect(store.hasCharacter('char.hero')).toBe(true);
+  it('new game seeds the chosen hero, starter items, and gold', () => {
+    // Default hero when none is chosen (used by tests).
+    expect(store.activeParty).toEqual(['char.squirrel']);
+    expect(store.hasCharacter('char.squirrel')).toBe(true);
     expect(store.gold).toBe(20);
     expect(store.itemCount('item.minor-potion')).toBe(2);
+  });
+
+  it('picking a hero seeds recruit quests for the two not chosen', () => {
+    store.newGame('char.gnome');
+    expect(store.activeParty).toEqual(['char.gnome']);
+    expect(store.questState('quest.recruit-squirrel')).toBe('active');
+    expect(store.questState('quest.recruit-woodelf')).toBe('active');
+    expect(store.questState('quest.recruit-gnome')).toBe('unstarted');
   });
 
   it('round-trips all save-relevant state through toBlob/loadBlob', () => {

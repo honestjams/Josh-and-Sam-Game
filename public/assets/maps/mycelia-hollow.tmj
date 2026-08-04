@@ -14,7 +14,7 @@
   "nextobjectid": 40,
   "tilesets": [],
   "properties": [
-    { "name": "displayName", "type": "string", "value": "Mycelia Hollow" },
+    { "name": "displayName", "type": "string", "value": "The Mushroom Kingdom" },
     { "name": "background", "type": "string", "value": "bg.village" }
   ],
   "layers": [
@@ -63,6 +63,11 @@
           "properties": [{ "name": "npcId", "type": "string", "value": "npc.rustle" }]
         },
         {
+          "id": 17, "name": "The Mushroom King", "type": "npc", "point": true,
+          "x": 752, "y": 336, "width": 0, "height": 0, "rotation": 0, "visible": true,
+          "properties": [{ "name": "npcId", "type": "string", "value": "npc.mushroom-king" }]
+        },
+        {
           "id": 13, "name": "Fen", "type": "npc", "point": true,
           "x": 752, "y": 240, "width": 0, "height": 0, "rotation": 0, "visible": true,
           "properties": [{ "name": "npcId", "type": "string", "value": "npc.fen" }]
@@ -78,6 +83,14 @@
           "properties": [
             { "name": "spriteKey", "type": "string", "value": "prop.crafting-stump" },
             { "name": "action", "type": "string", "value": "crafting" }
+          ]
+        },
+        {
+          "id": 16, "name": "Training Post", "type": "prop", "point": true,
+          "x": 592, "y": 400, "width": 0, "height": 0, "rotation": 0, "visible": true,
+          "properties": [
+            { "name": "spriteKey", "type": "string", "value": "prop.training-post" },
+            { "name": "action", "type": "string", "value": "sparring" }
           ]
         },
         {

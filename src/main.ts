@@ -3,8 +3,11 @@ import { DESIGN_WIDTH, DESIGN_HEIGHT, PALETTE } from '@/game/config';
 import { BootScene } from '@/game/scenes/BootScene';
 import { PreloadScene } from '@/game/scenes/PreloadScene';
 import { TitleScene } from '@/game/scenes/TitleScene';
+import { CharacterSelectScene } from '@/game/scenes/CharacterSelectScene';
 import { OverworldScene } from '@/game/scenes/OverworldScene';
 import { DialogueScene } from '@/game/scenes/DialogueScene';
+import { BattleScene } from '@/game/scenes/BattleScene';
+import { MenuScene } from '@/game/scenes/MenuScene';
 
 /**
  * Entry point. One fixed design resolution scaled to fit the viewport
@@ -24,7 +27,16 @@ const config: Phaser.Types.Core.GameConfig = {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
   },
-  scene: [BootScene, PreloadScene, TitleScene, OverworldScene, DialogueScene],
+  scene: [
+    BootScene,
+    PreloadScene,
+    TitleScene,
+    CharacterSelectScene,
+    OverworldScene,
+    DialogueScene,
+    BattleScene,
+    MenuScene,
+  ],
 };
 
 // eslint-disable-next-line no-new

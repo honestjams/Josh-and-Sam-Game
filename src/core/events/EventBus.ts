@@ -11,6 +11,7 @@ export interface GameEvents {
   'battle:end': { victory: boolean };
   'game:saved': { slotId: string };
   'game:loaded': { slotId: string };
+  'menu:close': Record<string, never>;
   'toast': { message: string };
 }
 

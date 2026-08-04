@@ -26,6 +26,7 @@ export const SceneKeys = {
   Boot: 'BootScene',
   Preload: 'PreloadScene',
   Title: 'TitleScene',
+  CharacterSelect: 'CharacterSelectScene',
   Overworld: 'OverworldScene',
   Dialogue: 'DialogueScene',
   Battle: 'BattleScene',

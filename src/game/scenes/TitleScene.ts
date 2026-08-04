@@ -66,10 +66,10 @@ export class TitleScene extends Phaser.Scene {
   }
 
   private startNewGame(): void {
-    gameStore.newGame();
+    // Hero identity is chosen on the next screen (which calls gameStore.newGame).
     this.cameras.main.fadeOut(250, PALETTE.night >> 16, (PALETTE.night >> 8) & 0xff, PALETTE.night & 0xff);
     this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
-      this.scene.start(SceneKeys.Overworld);
+      this.scene.start(SceneKeys.CharacterSelect);
     });
   }
 

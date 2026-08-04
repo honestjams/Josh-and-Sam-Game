@@ -16,6 +16,32 @@ export const QUESTS: Record<Id, QuestDefinition> = {
     ],
     rewards: { itemIds: ['item.grove-map'] },
   },
+  // The two heroes the player did NOT pick are met and recruited on the road.
+  // These are seeded when the hero is chosen and completed later in the story.
+  'quest.recruit-squirrel': {
+    id: 'quest.recruit-squirrel',
+    title: 'The Squirrel Sentinel',
+    description: 'Nutkin guards a forest crossing. Earn their trust to travel together.',
+    isMainQuest: false,
+    objectives: ['Meet Nutkin on the Amberwood Route.'],
+    rewards: {},
+  },
+  'quest.recruit-gnome': {
+    id: 'quest.recruit-gnome',
+    title: 'The Gnome of the Glade',
+    description: 'Fizzwick tends a hidden glade. Help them and they will join you.',
+    isMainQuest: false,
+    objectives: ['Find Fizzwick in the Rootway.'],
+    rewards: {},
+  },
+  'quest.recruit-woodelf': {
+    id: 'quest.recruit-woodelf',
+    title: 'The Wandering Elf',
+    description: 'Sylwen roams the deep wood. Cross paths and prove yourself an ally.',
+    isMainQuest: false,
+    objectives: ['Encounter Sylwen beyond the Rootway.'],
+    rewards: {},
+  },
   'quest.recruit-leaf': {
     id: 'quest.recruit-leaf',
     title: 'A Leaf on the Wind',

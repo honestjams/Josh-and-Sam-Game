@@ -52,6 +52,35 @@ export const ENEMIES: Record<Id, EnemyDefinition> = {
     spriteKey: 'enemy.gloom-moth',
   },
 
+  // --- Dark Lord's minions -------------------------------------------------
+  'enemy.dark-minion': {
+    id: 'enemy.dark-minion',
+    name: 'Blight Thrall',
+    stats: { maxHp: 40, maxMp: 12, attack: 13, defense: 7, speed: 10 },
+    element: 'decay',
+    skillIds: ['skill.spore-bite'],
+    ai: [
+      { action: 'attack', weight: 2 },
+      { action: 'skill.spore-bite', weight: 2 },
+    ],
+    xpReward: 14,
+    goldReward: 10,
+    drops: [{ itemId: 'item.blue-spore', chance: 0.5 }],
+    spriteKey: 'enemy.dark-minion',
+  },
+  'enemy.dark-brute': {
+    id: 'enemy.dark-brute',
+    name: 'Enduring Brute',
+    stats: { maxHp: 70, maxMp: 8, attack: 17, defense: 11, speed: 6 },
+    element: 'decay',
+    skillIds: [],
+    ai: [{ action: 'attack', weight: 1 }],
+    xpReward: 22,
+    goldReward: 16,
+    drops: [{ itemId: 'item.dark-tonic', chance: 0.3 }],
+    spriteKey: 'enemy.dark-minion',
+  },
+
   // --- Miniboss ------------------------------------------------------------
   'enemy.rot-warden': {
     id: 'enemy.rot-warden',
@@ -69,6 +98,25 @@ export const ENEMIES: Record<Id, EnemyDefinition> = {
     goldReward: 80,
     drops: [{ itemId: 'item.grove-map', chance: 1 }],
     spriteKey: 'enemy.rot-warden',
+    isMiniboss: true,
+  },
+
+  // --- The Dark Lord: final boss (combat path of the endgame fork) ---------
+  'enemy.mycelial-tyrant': {
+    id: 'enemy.mycelial-tyrant',
+    name: 'The Mycelial Tyrant',
+    stats: { maxHp: 320, maxMp: 60, attack: 24, defense: 14, speed: 12 },
+    element: 'decay',
+    skillIds: ['skill.spore-bite', 'skill.blight-wave'],
+    ai: [
+      { action: 'attack', weight: 3 },
+      { action: 'skill.spore-bite', weight: 2 },
+      { action: 'skill.blight-wave', weight: 3, whenHpBelow: 0.6 },
+    ],
+    xpReward: 300,
+    goldReward: 500,
+    drops: [{ itemId: 'item.shadow-crown', chance: 1 }],
+    spriteKey: 'enemy.mycelial-tyrant',
     isMiniboss: true,
   },
 };

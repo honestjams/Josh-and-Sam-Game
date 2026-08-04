@@ -1,5 +1,5 @@
 import type { DialogueTree, DialogueNode, Id } from '@/data/types';
-import type { GameStore } from '@/core/store/GameStore';
+import type { GameStore, ConsequenceSideEffect } from '@/core/store/GameStore';
 
 /** What the scene renders for the current step. */
 export interface DialogueView {
@@ -9,10 +9,8 @@ export interface DialogueView {
   choices: Array<{ label: string; index: number }>;
 }
 
-/** Side effects the runner surfaces for the scene to act on (e.g. open shop). */
-export interface DialogueSideEffect {
-  openShop?: Id;
-}
+/** Side effects the runner surfaces for the scene to act on (shop, battle). */
+export type DialogueSideEffect = ConsequenceSideEffect;
 
 /**
  * Phaser-independent dialogue traversal. Owns branching, condition checks,

@@ -26,6 +26,13 @@ export const NPCS: Record<Id, NpcDefinition> = {
     spriteKey: 'npc.fen',
     placeholderColor: 0xd4a017,
   },
+  'npc.mushroom-king': {
+    id: 'npc.mushroom-king',
+    name: 'The Mushroom King',
+    dialogueId: 'dlg.mushroom-king',
+    spriteKey: 'npc.mushroom-king',
+    placeholderColor: 0xb5423a,
+  },
   'npc.boletta': {
     id: 'npc.boletta',
     name: 'Boletta',

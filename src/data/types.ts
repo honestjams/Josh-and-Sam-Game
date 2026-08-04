@@ -75,6 +75,12 @@ export interface CharacterDefinition {
   spriteKey: string;
   /** Quest that must be completed to recruit this ally. Absent for the starting hero. */
   recruitQuestId?: Id;
+  /**
+   * True for the characters offered on the New Game character-select screen.
+   * The player picks one as their hero; the others are met and recruited
+   * later in the story.
+   */
+  selectableHero?: boolean;
 }
 
 // ---------------------------------------------------------------------------
@@ -169,7 +175,8 @@ export type Consequence =
   | { type: 'start-quest'; questId: Id }
   | { type: 'complete-quest'; questId: Id }
   | { type: 'recruit'; characterId: Id }
-  | { type: 'open-shop'; shopId: Id };
+  | { type: 'open-shop'; shopId: Id }
+  | { type: 'start-battle'; enemyIds: Id[]; isMiniboss?: boolean; victoryFlag?: string };
 
 export interface DialogueChoice {
   text: string;

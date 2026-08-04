@@ -1,6 +1,6 @@
 import * as Phaser from 'phaser';
 import { SceneKeys, TILE_SIZE, DESIGN_WIDTH, DESIGN_HEIGHT, PALETTE } from '@/game/config';
-import { NPCS, QUESTS } from '@/data';
+import { NPCS, QUESTS, CHARACTERS } from '@/data';
 import { ASSETS_BY_KEY } from '@/game/assets/manifest';
 import { gameStore } from '@/core/store/GameStore';
 import { saveService } from '@/core/services';
@@ -179,7 +179,7 @@ export class OverworldScene extends Phaser.Scene {
 
   /** Fall back to a known texture if a key somehow didn't load. */
   private textureKey(key: string): string {
-    return this.textures.exists(key) ? key : 'char.hero';
+    return this.textures.exists(key) ? key : 'char.squirrel';
   }
 
   private spawnPlayer(): void {
@@ -190,10 +190,12 @@ export class OverworldScene extends Phaser.Scene {
       pos.mapId === 'mycelia-hollow' ? { x: pos.tileX, y: pos.tileY } : { ...this.defaultStart };
     this.facing = pos.facing ?? 'down';
 
+    // Use the chosen hero's sprite (activeParty leader).
+    const heroKey = CHARACTERS[gameStore.activeParty[0] ?? '']?.spriteKey ?? 'char.squirrel';
     this.player = this.add.image(
       this.centerX(this.playerTile.x),
       this.centerY(this.playerTile.y),
-      this.textureKey('char.hero'),
+      this.textureKey(heroKey),
     );
     this.player.setOrigin(0.5, 0.7);
     this.player.setDepth(this.centerY(this.playerTile.y));
@@ -213,6 +215,8 @@ export class OverworldScene extends Phaser.Scene {
     };
     kb.on('keydown-SPACE', () => this.interact());
     kb.on('keydown-ENTER', () => this.saveGame());
+    kb.on('keydown-M', () => this.openMenu());
+    kb.on('keydown-I', () => this.openMenu());
     // Note: Escape is intentionally NOT bound here — it belongs to the
     // dialogue overlay. Quit-to-title is a HUD button to avoid the clash.
   }
@@ -282,7 +286,12 @@ export class OverworldScene extends Phaser.Scene {
     }
     const prop = this.props.find((p) => p.tileX === fx && p.tileY === fy);
     if (prop?.action === 'crafting') {
-      eventBus.emit('toast', { message: 'A crafting stump. Brewing opens in the next build.' });
+      this.dialogueActive = true;
+      this.scene.launch(SceneKeys.Menu, { tab: 'crafting' });
+    } else if (prop?.action === 'sparring') {
+      eventBus.emit('battle:start', {
+        enemyIds: ['enemy.blight-mite', 'enemy.gloom-moth'],
+      });
     }
   }
 
@@ -292,6 +301,12 @@ export class OverworldScene extends Phaser.Scene {
     if (!dialogueId) return;
     this.dialogueActive = true;
     this.scene.launch(SceneKeys.Dialogue, { dialogueId });
+  }
+
+  private openMenu(): void {
+    if (this.dialogueActive || this.isMoving) return;
+    this.dialogueActive = true;
+    this.scene.launch(SceneKeys.Menu, { tab: 'inventory' });
   }
 
   private wireEvents(): void {
@@ -305,6 +320,25 @@ export class OverworldScene extends Phaser.Scene {
       eventBus.on('shop:open', ({ shopId }) => {
         // Shop scene arrives in the next build; acknowledge the intent for now.
         eventBus.emit('toast', { message: `Fen opens his wares (${shopId}) — shop coming soon.` });
+      }),
+    );
+    this.unsub.push(
+      eventBus.on('battle:start', ({ enemyIds, isMiniboss }) => {
+        this.dialogueActive = true; // freeze overworld input while paused
+        this.scene.pause();
+        this.scene.launch(SceneKeys.Battle, { enemyIds, isMiniboss });
+      }),
+    );
+    this.unsub.push(
+      eventBus.on('battle:end', () => {
+        this.dialogueActive = false;
+        this.refreshHud();
+      }),
+    );
+    this.unsub.push(
+      eventBus.on('menu:close', () => {
+        this.dialogueActive = false;
+        this.refreshHud();
       }),
     );
     this.unsub.push(eventBus.on('toast', ({ message }) => this.showToast(message)));
@@ -365,7 +399,7 @@ export class OverworldScene extends Phaser.Scene {
       .setDepth(1000);
 
     this.add
-      .text(DESIGN_WIDTH - 16, 12, 'Move: WASD/Arrows · Talk: Space · Save: Enter', {
+      .text(DESIGN_WIDTH - 16, 12, 'Move: WASD/Arrows · Talk: Space · Menu: M · Save: Enter', {
         fontFamily: 'system-ui, sans-serif',
         fontSize: '12px',
         color: '#9b8a6f',

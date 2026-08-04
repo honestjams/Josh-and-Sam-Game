@@ -154,9 +154,10 @@ export class DialogueScene extends Phaser.Scene {
   }
 
   private close(): void {
-    // Surface any side effects the runner collected (e.g. open a shop).
+    // Surface any side effects the runner collected (open a shop, start a battle).
     for (const effect of this.runner?.sideEffects ?? []) {
       if (effect.openShop) eventBus.emit('shop:open', { shopId: effect.openShop });
+      if (effect.startBattle) eventBus.emit('battle:start', effect.startBattle);
     }
     eventBus.emit('dialogue:end', { dialogueId: this.dialogueId });
     this.scene.stop();
