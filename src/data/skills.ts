@@ -1,0 +1,55 @@
+import type { Id, SkillDefinition } from './types';
+
+/** All skills, keyed by id. Party members and enemies reference these. */
+export const SKILLS: Record<Id, SkillDefinition> = {
+  'skill.slash': {
+    id: 'skill.slash',
+    name: 'Slash',
+    description: 'A focused strike that hits harder than a plain attack.',
+    mpCost: 2,
+    element: 'neutral',
+    target: 'single-enemy',
+    effect: 'damage',
+    power: 14,
+  },
+  'skill.leaf-cutter': {
+    id: 'skill.leaf-cutter',
+    name: 'Leaf Cutter',
+    description: 'The Leaf whirls razor-sharp, striking every foe.',
+    mpCost: 4,
+    element: 'growth',
+    target: 'all-enemies',
+    effect: 'damage',
+    power: 9,
+  },
+  'skill.rustle': {
+    id: 'skill.rustle',
+    name: 'Rustle',
+    description: 'A soothing rustle that mends an ally with growth energy.',
+    mpCost: 3,
+    element: 'growth',
+    target: 'single-ally',
+    effect: 'heal',
+    power: 16,
+  },
+  'skill.spore-bite': {
+    id: 'skill.spore-bite',
+    name: 'Spore Bite',
+    description: 'A poisoned nip from a corrupted creature.',
+    mpCost: 2,
+    element: 'decay',
+    target: 'single-enemy',
+    effect: 'damage',
+    power: 10,
+  },
+  'skill.blight-wave': {
+    id: 'skill.blight-wave',
+    name: 'Blight Wave',
+    description: 'The miniboss exhales a wave of decay over the whole party.',
+    mpCost: 6,
+    element: 'decay',
+    target: 'all-enemies',
+    effect: 'damage',
+    power: 12,
+  },
+};
