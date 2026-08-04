@@ -1,6 +1,7 @@
 import * as Phaser from 'phaser';
 import { SceneKeys, PALETTE, DESIGN_WIDTH, DESIGN_HEIGHT } from '@/game/config';
 import { ASSETS, type AssetEntry } from '@/game/assets/manifest';
+import { MAP_KEY, MYCELIA_HOLLOW_MAP } from '@/game/assets/mapData';
 
 /** Convert a Phaser hex int color to a CSS `#rrggbb` string. */
 function hexColor(color: number): string {
@@ -26,8 +27,12 @@ export class PreloadScene extends Phaser.Scene {
   preload(): void {
     this.drawLoadingBar();
 
-    // The hand-made Tiled map (object layers for collision + triggers).
-    this.load.tilemapTiledJSON('map.mycelia-hollow', 'assets/maps/mycelia-hollow.tmj');
+    // Register the hand-made Tiled map (object layers for collision + triggers)
+    // straight into the cache from the embedded JSON — no runtime fetch.
+    this.cache.tilemap.add(MAP_KEY, {
+      format: Phaser.Tilemaps.Formats.TILED_JSON,
+      data: MYCELIA_HOLLOW_MAP,
+    });
 
     // Track which real files are absent so we can substitute placeholders.
     this.load.on(Phaser.Loader.Events.FILE_LOAD_ERROR, (file: Phaser.Loader.File) => {

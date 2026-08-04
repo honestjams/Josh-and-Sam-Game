@@ -23,9 +23,10 @@ order to expand.
 ```bash
 npm install
 npm run dev      # http://localhost:5173  — the playable slice
-npm run build    # typecheck + static production build into dist/
-npm run preview  # serve the production build locally
-npm test         # run the unit tests (Vitest, no engine required)
+npm run build        # typecheck + static production build into dist/
+npm run build:single # one self-contained dist/index.html (no external requests)
+npm run preview      # serve the production build locally
+npm test             # run the unit tests (Vitest, no engine required)
 ```
 
 Requires Node 18+ (developed on Node 22).
@@ -190,7 +191,11 @@ consequences (`tests/dialogue.test.ts`).
 
 ## Deployment
 
-The build is fully static. Both configs are included but **nothing is deployed**:
+The build is fully static. Both host configs are included:
 
 - **Vercel** — `vercel.json` (build `npm run build`, output `dist/`).
 - **Netlify** — `netlify.toml` (same).
+
+For a quick, portable playtest without a host, `npm run build:single` inlines the
+entire game (including the map) into one `dist/index.html` with **no external
+requests** — open it directly or drop it anywhere static.

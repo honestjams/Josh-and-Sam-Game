@@ -1,10 +1,18 @@
 import { defineConfig } from 'vite';
 import { fileURLToPath, URL } from 'node:url';
+import { viteSingleFile } from 'vite-plugin-singlefile';
 
 // Vite config for the Mycelia Hollow vertical slice.
 // Static build target — output in `dist/`, deployable to Vercel or Netlify.
+//
+// `SINGLE_FILE=1 npm run build` inlines everything into one self-contained
+// `dist/index.html` (no external requests) — used to publish a portable,
+// hostable build. The normal build stays multi-file.
+const singleFile = process.env.SINGLE_FILE === '1';
+
 export default defineConfig({
   base: './',
+  plugins: singleFile ? [viteSingleFile()] : [],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
@@ -13,7 +21,7 @@ export default defineConfig({
   build: {
     target: 'es2022',
     outDir: 'dist',
-    sourcemap: true,
+    sourcemap: !singleFile,
   },
   server: {
     host: true,
