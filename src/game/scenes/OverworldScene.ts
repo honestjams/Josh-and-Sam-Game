@@ -59,6 +59,8 @@ export class OverworldScene extends Phaser.Scene {
   private facing: Facing = 'down';
   private isMoving = false;
   private dialogueActive = false;
+  /** Overlay scenes that currently freeze overworld input (dialogue/menu/shop/battle). */
+  private frozenBy = new Set<string>();
 
   private mapWidth = 30;
   private mapHeight = 17;
@@ -298,7 +300,7 @@ export class OverworldScene extends Phaser.Scene {
     }
     const prop = this.props.find((p) => p.tileX === fx && p.tileY === fy);
     if (prop?.action === 'crafting') {
-      this.dialogueActive = true;
+      this.freeze('menu', true);
       this.scene.launch(SceneKeys.Menu, { tab: 'crafting' });
     } else if (prop?.action === 'sparring') {
       eventBus.emit('battle:start', {
@@ -311,45 +313,58 @@ export class OverworldScene extends Phaser.Scene {
 
   private openDialogue(dialogueId: string): void {
     if (!dialogueId) return;
-    this.dialogueActive = true;
+    this.freeze('dialogue', true);
     this.scene.launch(SceneKeys.Dialogue, { dialogueId });
   }
 
   private openMenu(): void {
     if (this.dialogueActive || this.isMoving) return;
-    this.dialogueActive = true;
+    this.freeze('menu', true);
     this.scene.launch(SceneKeys.Menu, { tab: 'inventory' });
+  }
+
+  /** Track overlay freezes so input stays locked until every overlay closes. */
+  private freeze(key: string, on: boolean): void {
+    if (on) this.frozenBy.add(key);
+    else this.frozenBy.delete(key);
+    this.dialogueActive = this.frozenBy.size > 0;
   }
 
   private wireEvents(): void {
     this.unsub.push(
       eventBus.on('dialogue:end', () => {
-        this.dialogueActive = false;
+        this.freeze('dialogue', false);
         this.refreshHud();
       }),
     );
     this.unsub.push(
       eventBus.on('shop:open', ({ shopId }) => {
-        // Shop scene arrives in the next build; acknowledge the intent for now.
-        eventBus.emit('toast', { message: `Fen opens his wares (${shopId}) — shop coming soon.` });
+        this.freeze('shop', true);
+        this.scene.launch(SceneKeys.Shop, { shopId });
+      }),
+    );
+    this.unsub.push(
+      eventBus.on('shop:close', () => {
+        this.freeze('shop', false);
+        this.refreshHud();
       }),
     );
     this.unsub.push(
       eventBus.on('battle:start', ({ enemyIds, isMiniboss }) => {
-        this.dialogueActive = true; // freeze overworld input while paused
+        this.freeze('battle', true); // freeze overworld input while paused
         this.scene.pause();
         this.scene.launch(SceneKeys.Battle, { enemyIds, isMiniboss });
       }),
     );
     this.unsub.push(
       eventBus.on('battle:end', () => {
-        this.dialogueActive = false;
+        this.freeze('battle', false);
         this.refreshHud();
       }),
     );
     this.unsub.push(
       eventBus.on('menu:close', () => {
-        this.dialogueActive = false;
+        this.freeze('menu', false);
         this.refreshHud();
       }),
     );

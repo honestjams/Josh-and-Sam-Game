@@ -7,6 +7,7 @@ export interface GameEvents {
   'dialogue:start': { dialogueId: string };
   'dialogue:end': { dialogueId: string };
   'shop:open': { shopId: string };
+  'shop:close': Record<string, never>;
   'battle:start': { enemyIds: string[]; isMiniboss?: boolean };
   'battle:end': { victory: boolean };
   'game:saved': { slotId: string };

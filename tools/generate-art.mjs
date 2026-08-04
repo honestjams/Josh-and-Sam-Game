@@ -457,6 +457,78 @@ function blightedReachBg() {
   save(c, 'backgrounds/blighted-reach.png');
 }
 
+function orcTavernBg() {
+  const { c, x, w, h } = canvas(960, 540);
+  // deep green forest gloom
+  const sky = x.createLinearGradient(0, 0, 0, h);
+  sky.addColorStop(0, '#1f3320'); sky.addColorStop(1, '#122015');
+  x.fillStyle = sky; x.fillRect(0, 0, w, h);
+  // glowing forest gap (left)
+  ellipse(x, 210, 300, 150, 200, 'rgba(120,200,140,0.25)');
+  // huge tree trunk left
+  x.fillStyle = '#3a2a1a'; x.beginPath(); x.moveTo(0, 0); x.lineTo(240, 0); x.quadraticCurveTo(140, 300, 180, 540); x.lineTo(0, 540); x.fill();
+  x.fillStyle = 'rgba(90,140,60,0.35)'; for (let i = 0; i < 16; i++) ellipse(x, 40 + (i % 3) * 30, i * 34, 8, 12, 'rgba(90,140,60,0.3)');
+  // ground / wooden deck
+  x.fillStyle = '#4a3826'; x.fillRect(0, 380, w, 160);
+  x.fillStyle = '#6a4f34'; for (let i = 0; i < 14; i++) { x.fillRect(260 + i * 44, 380, 40, 160); }
+  // tavern building
+  x.fillStyle = '#5a4632'; x.fillRect(420, 150, 340, 260);
+  x.fillStyle = '#6b543c'; x.fillRect(420, 150, 340, 30); // beam
+  // roof with mushroom
+  x.fillStyle = '#4a3a2a'; x.beginPath(); x.moveTo(400, 150); x.lineTo(590, 90); x.lineTo(780, 150); x.fill();
+  cap(x, 640, 110, 60, 30, '#a9895a', '#c9b48a');
+  // warm doorway/window fire glow
+  x.fillStyle = 'rgba(255,170,70,0.9)'; x.fillRect(470, 250, 70, 90);
+  ellipse(x, 505, 300, 60, 70, 'rgba(255,150,60,0.35)');
+  x.fillStyle = '#ffcf7a'; x.fillRect(620, 240, 50, 50);
+  // hanging sign
+  x.fillStyle = '#7a5a34'; x.fillRect(300, 250, 110, 46);
+  x.strokeStyle = '#d8c49a'; x.lineWidth = 2; x.strokeRect(300, 250, 110, 46);
+  x.fillStyle = '#e8d9b0'; x.font = 'bold 13px sans-serif'; x.textAlign = 'center';
+  x.fillText('THE TUSK', 355, 268); x.fillText('& BARREL', 355, 285);
+  // campfire cauldron in front
+  ellipse(x, 560, 470, 34, 12, '#1a1109');
+  x.fillStyle = '#2a2a2e'; x.beginPath(); x.arc(560, 455, 20, 0, Math.PI); x.fill();
+  ellipse(x, 560, 462, 22, 8, '#ff8a3a'); ellipse(x, 560, 460, 12, 5, '#ffd76a');
+  // barrels
+  for (const bx of [800, 840]) { x.fillStyle = '#6a4a2a'; roundRect(x, bx, 400, 26, 40, 6, '#6a4a2a'); x.strokeStyle = '#3a2a18'; x.strokeRect(bx, 412, 26, 4); }
+  save(c, 'backgrounds/orc-tavern.png');
+}
+
+function witchHouseBg() {
+  const { c, x, w, h } = canvas(960, 540);
+  const sky = x.createLinearGradient(0, 0, 0, h);
+  sky.addColorStop(0, '#16281f'); sky.addColorStop(1, '#0e1a14');
+  x.fillStyle = sky; x.fillRect(0, 0, w, h);
+  // mossy glowing forest left
+  ellipse(x, 200, 240, 180, 220, 'rgba(90,180,150,0.22)');
+  x.fillStyle = '#2a3a24'; x.beginPath(); x.moveTo(0, 0); x.lineTo(120, 0); x.quadraticCurveTo(60, 260, 90, 540); x.lineTo(0, 540); x.fill();
+  // ground
+  x.fillStyle = '#3a3226'; x.fillRect(0, 360, w, 180);
+  x.fillStyle = '#6a5a3a'; x.beginPath(); x.moveTo(360, 540); x.lineTo(640, 540); x.lineTo(560, 400); x.lineTo(440, 400); x.closePath(); x.fill(); // path
+  // little pond
+  ellipse(x, 250, 380, 90, 34, '#3f7d86'); ellipse(x, 250, 378, 78, 26, '#57a0a8');
+  // glowing mushrooms
+  for (const [mx, my, col] of [[120, 300, '#7fd0e0'], [180, 340, '#e59ad0'], [300, 320, '#c0392b'], [90, 360, '#7fd0e0']]) {
+    ellipse(x, mx, my + 6, 3, 10, 'rgba(150,230,230,0.4)'); cap(x, mx, my, 12, 8, col, '#f0f6e0');
+  }
+  // stone witch cottage right
+  x.fillStyle = '#4a4a52'; x.fillRect(600, 200, 280, 210);
+  x.fillStyle = '#3a3a42'; x.beginPath(); x.moveTo(580, 200); x.lineTo(740, 130); x.lineTo(900, 200); x.fill();
+  x.fillStyle = '#2a2a30'; x.fillRect(700, 130, 24, 40); // chimney
+  x.fillStyle = '#6a5a3a'; x.fillRect(690, 300, 50, 110); // door
+  x.fillStyle = 'rgba(255,200,110,0.9)'; ellipse(x, 640, 300, 10, 14, '#ffd27a'); // lantern
+  // cauldron with green brew + witch
+  ellipse(x, 470, 430, 40, 14, '#141109');
+  x.fillStyle = '#23252a'; x.beginPath(); x.arc(470, 415, 24, 0, Math.PI); x.fill();
+  ellipse(x, 470, 420, 26, 9, '#5fd23a'); ellipse(x, 470, 418, 14, 5, '#a8f06a');
+  ellipse(x, 470, 400, 6, 8, 'rgba(120,220,120,0.5)'); // rising vapour
+  // drying herbs rack
+  x.strokeStyle = '#5a4a2a'; x.lineWidth = 3; x.beginPath(); x.moveTo(380, 340); x.lineTo(430, 340); x.stroke();
+  for (const hx of [388, 402, 416]) { x.strokeStyle = '#7a5a8a'; x.lineWidth = 4; x.beginPath(); x.moveTo(hx, 342); x.lineTo(hx, 360); x.stroke(); }
+  save(c, 'backgrounds/witch-house.png');
+}
+
 function titleBg() {
   const { c, x, w, h } = canvas(960, 540);
   const g = x.createRadialGradient(480, 240, 60, 480, 240, 560);
@@ -489,7 +561,7 @@ function all() {
   mushroomVillager('boletta', '#c86b8a');
   blightMite(); witherCap(); gloomMoth(); rotWarden(); darkMinion(); mycelialTyrant();
   craftingStump(); trainingPost();
-  mushroomKingdomBg(); caveBg(); blightedReachBg(); titleBg();
+  mushroomKingdomBg(); caveBg(); blightedReachBg(); orcTavernBg(); witchHouseBg(); titleBg();
 
   // Portraits reuse the sprite drawings, re-centered.
   portrait('squirrel', (x) => { x.translate(0, 2); drawMini(x, squirrelHead); }, '#3a2a18', '#1c140b');

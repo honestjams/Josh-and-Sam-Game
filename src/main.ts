@@ -8,6 +8,7 @@ import { OverworldScene } from '@/game/scenes/OverworldScene';
 import { DialogueScene } from '@/game/scenes/DialogueScene';
 import { BattleScene } from '@/game/scenes/BattleScene';
 import { MenuScene } from '@/game/scenes/MenuScene';
+import { ShopScene } from '@/game/scenes/ShopScene';
 
 /**
  * Entry point. One fixed design resolution scaled to fit the viewport
@@ -36,6 +37,7 @@ const config: Phaser.Types.Core.GameConfig = {
     DialogueScene,
     BattleScene,
     MenuScene,
+    ShopScene,
   ],
 };
 

@@ -26,6 +26,8 @@ Notes:
 | `mushroom-kingdom.png` | Starting hub with the Mushroom King | The cozy mushroom village + King on throne |
 | `cave.png` | The Rootway caves (after the land of light) | The glowing grotto / crystal caverns |
 | `blighted-reach.png` | The Dark Lord's kingdom | The lava/gothic "Blighted Reach" |
+| `orc-tavern.png` | The Tusk & Barrel tavern | The orc tavern in the woods |
+| `witch-house.png` | The witch's house | The witch + cauldron stone cottage |
 | `title.png` | Title-screen backdrop | (any mood-setting image) |
 
 ## Character & NPC sprites — `sprites/`  (≈32×48, transparent)

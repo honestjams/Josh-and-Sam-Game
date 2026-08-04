@@ -44,6 +44,8 @@ const RAW: AssetEntry[] = [
   { key: 'bg.village', file: 'backgrounds/mushroom-kingdom.png', width: DESIGN_WIDTH, height: DESIGN_HEIGHT, color: PALETTE.mossDark, label: 'Mushroom Kingdom', kind: 'background' },
   { key: 'bg.cave', file: 'backgrounds/cave.png', width: DESIGN_WIDTH, height: DESIGN_HEIGHT, color: 0x5a4028, label: 'The Rootway Caves', kind: 'background' },
   { key: 'bg.blighted-reach', file: 'backgrounds/blighted-reach.png', width: DESIGN_WIDTH, height: DESIGN_HEIGHT, color: 0x2b2429, label: 'The Blighted Reach', kind: 'background' },
+  { key: 'bg.orc-tavern', file: 'backgrounds/orc-tavern.png', width: DESIGN_WIDTH, height: DESIGN_HEIGHT, color: 0x2a3a24, label: 'The Tusk & Barrel', kind: 'background' },
+  { key: 'bg.witch-house', file: 'backgrounds/witch-house.png', width: DESIGN_WIDTH, height: DESIGN_HEIGHT, color: 0x16281f, label: "The Witch's House", kind: 'background' },
   { key: 'bg.title', file: 'backgrounds/title.png', width: DESIGN_WIDTH, height: DESIGN_HEIGHT, color: PALETTE.ink, label: 'Title Backdrop', kind: 'background' },
 
   // --- Selectable hero sprites + portraits --------------------------------
