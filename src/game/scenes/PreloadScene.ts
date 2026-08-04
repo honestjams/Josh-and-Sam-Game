@@ -40,7 +40,8 @@ export class PreloadScene extends Phaser.Scene {
     });
 
     for (const asset of ASSETS) {
-      this.load.image(asset.key, asset.path);
+      // Only entries with resolved art are loaded; the rest become placeholders.
+      if (asset.url) this.load.image(asset.key, asset.url);
     }
   }
 

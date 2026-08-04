@@ -22,6 +22,9 @@ export default defineConfig({
     target: 'es2022',
     outDir: 'dist',
     sourcemap: !singleFile,
+    // In single-file mode inline ALL art as data URIs so the one HTML is fully
+    // self-contained (the deployed artifact then shows real art, not fetches).
+    assetsInlineLimit: singleFile ? Number.MAX_SAFE_INTEGER : 4096,
   },
   server: {
     host: true,

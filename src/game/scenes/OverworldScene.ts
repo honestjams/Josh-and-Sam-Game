@@ -145,7 +145,12 @@ export class OverworldScene extends Phaser.Scene {
   // --- Rendering ----------------------------------------------------------
 
   private drawBackground(): void {
-    this.add.image(0, 0, 'bg.village').setOrigin(0, 0).setDepth(-100);
+    // Scale any source resolution to fill the design viewport.
+    this.add
+      .image(0, 0, 'bg.village')
+      .setOrigin(0, 0)
+      .setDisplaySize(DESIGN_WIDTH, DESIGN_HEIGHT)
+      .setDepth(-100);
   }
 
   private spawnObjects(): void {
@@ -154,7 +159,8 @@ export class OverworldScene extends Phaser.Scene {
       const def = NPCS[n.npcId];
       const key = def?.spriteKey ?? n.npcId;
       const sprite = this.placeSprite(n.tileX, n.tileY, key);
-      if (def) sprite.setTint(def.placeholderColor);
+      // Tint only the fallback placeholder so real art keeps its colours.
+      if (def && !ASSETS_BY_KEY[key]?.url) sprite.setTint(def.placeholderColor);
       this.npcs.push({ ...n, sprite });
     }
     // Static prop sprites (crafting stump, etc.)
@@ -173,6 +179,10 @@ export class OverworldScene extends Phaser.Scene {
   private placeSprite(tileX: number, tileY: number, key: string): Phaser.GameObjects.Image {
     const img = this.add.image(this.centerX(tileX), this.centerY(tileY), this.textureKey(key));
     img.setOrigin(0.5, 0.7);
+    // Render at the manifest's authored size so drop-in art of any resolution
+    // appears at the intended in-world scale.
+    const entry = ASSETS_BY_KEY[key];
+    if (entry) img.setDisplaySize(entry.width, entry.height);
     img.setDepth(this.centerY(tileY));
     return img;
   }
@@ -198,6 +208,8 @@ export class OverworldScene extends Phaser.Scene {
       this.textureKey(heroKey),
     );
     this.player.setOrigin(0.5, 0.7);
+    const heroEntry = ASSETS_BY_KEY[heroKey];
+    if (heroEntry) this.player.setDisplaySize(heroEntry.width, heroEntry.height);
     this.player.setDepth(this.centerY(this.playerTile.y));
     this.cameras.main.setBounds(0, 0, DESIGN_WIDTH, DESIGN_HEIGHT);
   }

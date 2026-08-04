@@ -8,6 +8,8 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "build:single": "tsc --noEmit && SINGLE_FILE=1 vite build",
+    "art": "node tools/generate-art.mjs",
+    "art:force": "FORCE=1 node tools/generate-art.mjs",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
@@ -17,6 +19,7 @@
     "phaser": "^4.2.1"
   },
   "devDependencies": {
+    "@napi-rs/canvas": "^1.0.3",
     "typescript": "^5.6.3",
     "vite": "^6.0.0",
     "vite-plugin-singlefile": "^2.3.3",
