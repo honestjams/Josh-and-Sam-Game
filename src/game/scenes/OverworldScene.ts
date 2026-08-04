@@ -181,10 +181,10 @@ export class OverworldScene extends Phaser.Scene {
   private placeSprite(tileX: number, tileY: number, key: string): Phaser.GameObjects.Image {
     const img = this.add.image(this.centerX(tileX), this.centerY(tileY), this.textureKey(key));
     img.setOrigin(0.5, 0.7);
-    // Render at the manifest's authored size so drop-in art of any resolution
-    // appears at the intended in-world scale.
+    // Scale to the manifest height, preserving the source aspect ratio, so
+    // drop-in art of any resolution/shape appears at the intended in-world size.
     const entry = ASSETS_BY_KEY[key];
-    if (entry) img.setDisplaySize(entry.width, entry.height);
+    if (entry && img.height) img.setScale(entry.height / img.height);
     img.setDepth(this.centerY(tileY));
     return img;
   }
@@ -211,7 +211,7 @@ export class OverworldScene extends Phaser.Scene {
     );
     this.player.setOrigin(0.5, 0.7);
     const heroEntry = ASSETS_BY_KEY[heroKey];
-    if (heroEntry) this.player.setDisplaySize(heroEntry.width, heroEntry.height);
+    if (heroEntry && this.player.height) this.player.setScale(heroEntry.height / this.player.height);
     this.player.setDepth(this.centerY(this.playerTile.y));
     this.cameras.main.setBounds(0, 0, DESIGN_WIDTH, DESIGN_HEIGHT);
   }
