@@ -1,0 +1,118 @@
+{
+  "compressionlevel": -1,
+  "width": 30,
+  "height": 17,
+  "tilewidth": 32,
+  "tileheight": 32,
+  "infinite": false,
+  "orientation": "orthogonal",
+  "renderorder": "right-down",
+  "tiledversion": "1.10.2",
+  "type": "map",
+  "version": "1.10",
+  "nextlayerid": 3,
+  "nextobjectid": 40,
+  "tilesets": [],
+  "properties": [
+    { "name": "displayName", "type": "string", "value": "Mycelia Hollow" },
+    { "name": "background", "type": "string", "value": "bg.village" }
+  ],
+  "layers": [
+    {
+      "id": 1,
+      "name": "collision",
+      "type": "objectgroup",
+      "visible": false,
+      "opacity": 1,
+      "x": 0,
+      "y": 0,
+      "draworder": "index",
+      "objects": [
+        { "id": 1, "name": "wall-top", "type": "wall", "x": 0, "y": 0, "width": 960, "height": 32, "rotation": 0, "visible": true },
+        { "id": 2, "name": "wall-bottom", "type": "wall", "x": 0, "y": 512, "width": 960, "height": 32, "rotation": 0, "visible": true },
+        { "id": 3, "name": "wall-left", "type": "wall", "x": 0, "y": 0, "width": 32, "height": 544, "rotation": 0, "visible": true },
+        { "id": 4, "name": "wall-right", "type": "wall", "x": 928, "y": 0, "width": 32, "height": 544, "rotation": 0, "visible": true },
+        { "id": 5, "name": "elder-shrine", "type": "building", "x": 416, "y": 32, "width": 160, "height": 96, "rotation": 0, "visible": true },
+        { "id": 6, "name": "fen-shop", "type": "building", "x": 672, "y": 96, "width": 192, "height": 128, "rotation": 0, "visible": true },
+        { "id": 7, "name": "boletta-hut", "type": "building", "x": 256, "y": 416, "width": 160, "height": 96, "rotation": 0, "visible": true },
+        { "id": 8, "name": "pond", "type": "water", "x": 96, "y": 256, "width": 128, "height": 96, "rotation": 0, "visible": true }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "objects",
+      "type": "objectgroup",
+      "visible": true,
+      "opacity": 1,
+      "x": 0,
+      "y": 0,
+      "draworder": "index",
+      "objects": [
+        {
+          "id": 10, "name": "player-start", "type": "player-start", "point": true,
+          "x": 496, "y": 400, "width": 0, "height": 0, "rotation": 0, "visible": true
+        },
+        {
+          "id": 11, "name": "Elder Morel", "type": "npc", "point": true,
+          "x": 496, "y": 144, "width": 0, "height": 0, "rotation": 0, "visible": true,
+          "properties": [{ "name": "npcId", "type": "string", "value": "npc.elder-morel" }]
+        },
+        {
+          "id": 12, "name": "Rustle", "type": "npc", "point": true,
+          "x": 240, "y": 304, "width": 0, "height": 0, "rotation": 0, "visible": true,
+          "properties": [{ "name": "npcId", "type": "string", "value": "npc.rustle" }]
+        },
+        {
+          "id": 13, "name": "Fen", "type": "npc", "point": true,
+          "x": 752, "y": 240, "width": 0, "height": 0, "rotation": 0, "visible": true,
+          "properties": [{ "name": "npcId", "type": "string", "value": "npc.fen" }]
+        },
+        {
+          "id": 14, "name": "Boletta", "type": "npc", "point": true,
+          "x": 304, "y": 400, "width": 0, "height": 0, "rotation": 0, "visible": true,
+          "properties": [{ "name": "npcId", "type": "string", "value": "npc.boletta" }]
+        },
+        {
+          "id": 15, "name": "Crafting Stump", "type": "prop", "point": true,
+          "x": 368, "y": 400, "width": 0, "height": 0, "rotation": 0, "visible": true,
+          "properties": [
+            { "name": "spriteKey", "type": "string", "value": "prop.crafting-stump" },
+            { "name": "action", "type": "string", "value": "crafting" }
+          ]
+        },
+        {
+          "id": 20, "name": "Glow Cap", "type": "pickup", "point": true,
+          "x": 80, "y": 80, "width": 0, "height": 0, "rotation": 0, "visible": true,
+          "properties": [
+            { "name": "flag", "type": "string", "value": "picked_glowcap_1" },
+            { "name": "itemId", "type": "string", "value": "item.glow-cap" }
+          ]
+        },
+        {
+          "id": 21, "name": "Glow Cap", "type": "pickup", "point": true,
+          "x": 880, "y": 464, "width": 0, "height": 0, "rotation": 0, "visible": true,
+          "properties": [
+            { "name": "flag", "type": "string", "value": "picked_glowcap_2" },
+            { "name": "itemId", "type": "string", "value": "item.glow-cap" }
+          ]
+        },
+        {
+          "id": 22, "name": "Glow Cap", "type": "pickup", "point": true,
+          "x": 592, "y": 336, "width": 0, "height": 0, "rotation": 0, "visible": true,
+          "properties": [
+            { "name": "flag", "type": "string", "value": "picked_glowcap_3" },
+            { "name": "itemId", "type": "string", "value": "item.glow-cap" }
+          ]
+        },
+        {
+          "id": 30, "name": "To Amberwood Route", "type": "transition", "point": true,
+          "x": 912, "y": 272, "width": 0, "height": 0, "rotation": 0, "visible": true,
+          "properties": [
+            { "name": "target", "type": "string", "value": "amberwood-route" },
+            { "name": "label", "type": "string", "value": "Amberwood Route" }
+          ]
+        }
+      ]
+    }
+  ]
+}
