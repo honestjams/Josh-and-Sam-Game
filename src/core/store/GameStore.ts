@@ -10,11 +10,11 @@ import type {
 } from '@/core/save/types';
 import { SAVE_VERSION } from '@/core/save/types';
 
-/** Where a brand-new game drops the player. */
+/** Where a brand-new game drops the player (matches the hub map's player-start). */
 const NEW_GAME_START: WorldPosition = {
   mapId: 'mycelia-hollow',
-  tileX: 15,
-  tileY: 12,
+  tileX: 14,
+  tileY: 11,
   facing: 'down',
 };
 

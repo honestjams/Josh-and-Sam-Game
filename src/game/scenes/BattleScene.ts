@@ -1,9 +1,11 @@
 import * as Phaser from 'phaser';
-import { SceneKeys, DESIGN_WIDTH, DESIGN_HEIGHT } from '@/game/config';
+import { SceneKeys, DESIGN_WIDTH, DESIGN_HEIGHT, PALETTE } from '@/game/config';
+import { getMap } from '@/game/maps/registry';
 import { CHARACTERS, ENEMIES, ITEMS, SKILLS } from '@/data';
 import type { Id, SkillDefinition } from '@/data/types';
 import { gameStore } from '@/core/store/GameStore';
 import { eventBus } from '@/core/events/EventBus';
+import { audioService } from '@/core/services';
 import {
   type Combatant,
   turnOrder,
@@ -61,7 +63,13 @@ export class BattleScene extends Phaser.Scene {
 
   create(data: BattleSceneData): void {
     this.battleData = data;
-    this.cameras.main.setBackgroundColor('#241d14');
+    this.cameras.main.setBackgroundColor('#120d08');
+    // Area-themed backdrop, dimmed for readability (FF/Pokémon feel).
+    const bgKey = getMap(gameStore.position.mapId).backgroundKey;
+    if (this.textures.exists(bgKey)) {
+      this.add.image(0, 0, bgKey).setOrigin(0, 0).setDisplaySize(DESIGN_WIDTH, DESIGN_HEIGHT).setTint(0x556070).setAlpha(0.55).setDepth(-10);
+    }
+    this.add.graphics().fillStyle(PALETTE.night, 0.35).fillRect(0, 0, DESIGN_WIDTH, DESIGN_HEIGHT).setDepth(-9);
     this.party = gameStore.activeParty
       .map((id) => gameStore.roster.find((r) => r.id === id))
       .filter((s): s is NonNullable<typeof s> => !!s)
@@ -76,6 +84,7 @@ export class BattleScene extends Phaser.Scene {
 
     this.drawScene();
     this.bindInput();
+    audioService.playMusic('battle');
 
     this.setMessage(
       data.isMiniboss ? `${this.enemies[0]?.name} blocks the way!` : 'Enemies appear!',
@@ -223,11 +232,29 @@ export class BattleScene extends Phaser.Scene {
   private activeIndex = 0;
   private labelFn: (i: number, sel: boolean) => string = (i) => `${i}`;
 
+  private targetCursor?: Phaser.GameObjects.Text;
+
   private setActive(i: number): void {
     this.activeIndex = i;
     if (this.phase === 'menu') this.menuIndex = i;
     else this.subIndex = i;
     this.paintMenu();
+    this.updateTargetCursor();
+  }
+
+  /** Bobbing arrow over the currently-selected target. */
+  private updateTargetCursor(): void {
+    if (this.phase !== 'target' || !this.targetPool[this.activeIndex]) {
+      this.targetCursor?.destroy();
+      this.targetCursor = undefined;
+      return;
+    }
+    const view = this.sprites.get(this.targetPool[this.activeIndex]!.id);
+    if (!view) return;
+    if (!this.targetCursor) {
+      this.targetCursor = this.add.text(0, 0, '▼', { fontFamily: 'system-ui, sans-serif', fontSize: '24px', color: '#f0c674', stroke: '#1a140d', strokeThickness: 3 }).setOrigin(0.5).setDepth(600);
+    }
+    this.targetCursor.setPosition(view.x, view.y - 58);
   }
 
   private paintMenu(): void {
@@ -241,6 +268,8 @@ export class BattleScene extends Phaser.Scene {
   private clearMenu(): void {
     this.menuGroup.forEach((t) => t.destroy());
     this.menuGroup = [];
+    this.targetCursor?.destroy();
+    this.targetCursor = undefined;
   }
 
   private bindInput(): void {
@@ -381,6 +410,7 @@ export class BattleScene extends Phaser.Scene {
     // Reuse subIndex-driven paint for target list.
     this.activeIndex = 0;
     this.paintMenu();
+    this.updateTargetCursor();
   }
 
   private targetPool: Combatant[] = [];
@@ -414,9 +444,12 @@ export class BattleScene extends Phaser.Scene {
     this.actor!.currentMp -= skill.mpCost;
     if (skill.effect === 'heal') {
       const amount = skill.power + Math.round(this.actor!.stats.attack * 0.5);
+      audioService.playSfx('heal');
       for (const t of targets) {
         t.currentHp = Math.min(t.stats.maxHp, t.currentHp + amount);
         this.refreshBars(t);
+        const v = this.sprites.get(t.id);
+        if (v) this.floatNumber(v.x, v.y - 20, `+${amount}`, '#9be07a');
       }
       this.setMessage(`${this.actor!.name} casts ${skill.name}. +${amount} HP.`);
     } else {
@@ -437,6 +470,7 @@ export class BattleScene extends Phaser.Scene {
   }
 
   private damage(target: Combatant, dmg: number): void {
+    audioService.playSfx('hit');
     target.currentHp -= dmg;
     if (target.currentHp <= 0) {
       target.currentHp = 0;
@@ -446,7 +480,19 @@ export class BattleScene extends Phaser.Scene {
     const view = this.sprites.get(target.id);
     if (view) {
       this.tweens.add({ targets: view, x: view.x + 6, duration: 40, yoyo: true, repeat: 3 });
+      const sprite = view.getData('sprite') as Phaser.GameObjects.Image;
+      sprite.setTint(0xff6655);
+      this.time.delayedCall(110, () => sprite.clearTint());
+      this.floatNumber(view.x, view.y - 20, `${dmg}`, '#ff6b5a');
     }
+  }
+
+  /** Rising, fading combat number over a combatant. */
+  private floatNumber(x: number, y: number, text: string, color: string): void {
+    const t = this.add.text(x, y, text, {
+      fontFamily: 'Georgia, serif', fontSize: '22px', color, stroke: '#1a140d', strokeThickness: 4,
+    }).setOrigin(0.5).setDepth(500);
+    this.tweens.add({ targets: t, y: y - 34, alpha: 0, duration: 720, ease: 'Cubic.easeOut', onComplete: () => t.destroy() });
   }
 
   // --- Enemy AI -----------------------------------------------------------
@@ -500,6 +546,7 @@ export class BattleScene extends Phaser.Scene {
   private victory(): void {
     this.phase = 'done';
     this.clearMenu();
+    audioService.playSfx('victory');
 
     let xp = 0;
     let gold = 0;
@@ -547,6 +594,7 @@ export class BattleScene extends Phaser.Scene {
   private defeat(): void {
     this.phase = 'done';
     this.clearMenu();
+    audioService.playSfx('defeat');
     this.setMessage('Your party has fallen...\nPress Space to return to the title.');
     this.waitForExit(false, true);
   }

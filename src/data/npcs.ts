@@ -40,4 +40,11 @@ export const NPCS: Record<Id, NpcDefinition> = {
     spriteKey: 'npc.boletta',
     placeholderColor: 0xc86b8a,
   },
+  'npc.dark-lord': {
+    id: 'npc.dark-lord',
+    name: 'The Dark Lord',
+    dialogueId: 'dlg.dark-lord',
+    spriteKey: 'npc.dark-lord',
+    placeholderColor: 0x1c1c22,
+  },
 };

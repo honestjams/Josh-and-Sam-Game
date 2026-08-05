@@ -1,0 +1,229 @@
+{
+ "compressionlevel": -1,
+ "width": 30,
+ "height": 17,
+ "tilewidth": 32,
+ "tileheight": 32,
+ "infinite": false,
+ "orientation": "orthogonal",
+ "renderorder": "right-down",
+ "tiledversion": "1.10.2",
+ "type": "map",
+ "version": "1.10",
+ "nextlayerid": 4,
+ "nextobjectid": 9,
+ "tilesets": [],
+ "properties": [
+  {
+   "name": "displayName",
+   "type": "string",
+   "value": "The Rootway"
+  }
+ ],
+ "layers": [
+  {
+   "id": 1,
+   "name": "walkable",
+   "type": "objectgroup",
+   "visible": false,
+   "opacity": 1,
+   "x": 0,
+   "y": 0,
+   "draworder": "index",
+   "objects": [
+    {
+     "id": 1,
+     "name": "walk",
+     "type": "walk",
+     "x": 544,
+     "y": 320,
+     "width": 352,
+     "height": 160,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 2,
+     "name": "walk",
+     "type": "walk",
+     "x": 480,
+     "y": 352,
+     "width": 96,
+     "height": 64,
+     "rotation": 0,
+     "visible": true
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "name": "collision",
+   "type": "objectgroup",
+   "visible": false,
+   "opacity": 1,
+   "x": 0,
+   "y": 0,
+   "draworder": "index",
+   "objects": [
+    {
+     "id": 3,
+     "name": "wall",
+     "type": "wall",
+     "x": 0,
+     "y": 0,
+     "width": 960,
+     "height": 128,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 4,
+     "name": "wall",
+     "type": "wall",
+     "x": 0,
+     "y": 480,
+     "width": 960,
+     "height": 64,
+     "rotation": 0,
+     "visible": true
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "name": "objects",
+   "type": "objectgroup",
+   "visible": true,
+   "opacity": 1,
+   "x": 0,
+   "y": 0,
+   "draworder": "index",
+   "objects": [
+    {
+     "id": 5,
+     "name": "player-start",
+     "type": "player-start",
+     "point": true,
+     "x": 848,
+     "y": 432,
+     "width": 0,
+     "height": 0,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 6,
+     "name": "Mushroom Kingdom",
+     "type": "transition",
+     "point": true,
+     "x": 880,
+     "y": 432,
+     "width": 0,
+     "height": 0,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "target",
+       "type": "string",
+       "value": "mycelia-hollow"
+      },
+      {
+       "name": "entryX",
+       "type": "int",
+       "value": 25
+      },
+      {
+       "name": "entryY",
+       "type": "int",
+       "value": 11
+      },
+      {
+       "name": "label",
+       "type": "string",
+       "value": "Mushroom Kingdom"
+      }
+     ]
+    },
+    {
+     "id": 7,
+     "name": "The Blighted Reach",
+     "type": "transition",
+     "point": true,
+     "x": 496,
+     "y": 368,
+     "width": 0,
+     "height": 0,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "target",
+       "type": "string",
+       "value": "blighted-reach"
+      },
+      {
+       "name": "entryX",
+       "type": "int",
+       "value": 2
+      },
+      {
+       "name": "entryY",
+       "type": "int",
+       "value": 13
+      },
+      {
+       "name": "label",
+       "type": "string",
+       "value": "The Blighted Reach"
+      }
+     ]
+    },
+    {
+     "id": 8,
+     "name": "The Rot Warden",
+     "type": "battle",
+     "point": true,
+     "x": 560,
+     "y": 368,
+     "width": 0,
+     "height": 0,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "enemyIds",
+       "type": "string",
+       "value": "enemy.rot-warden"
+      },
+      {
+       "name": "victoryFlag",
+       "type": "string",
+       "value": "rot_warden_defeated"
+      },
+      {
+       "name": "isMiniboss",
+       "type": "bool",
+       "value": true
+      },
+      {
+       "name": "block",
+       "type": "bool",
+       "value": true
+      },
+      {
+       "name": "spriteKey",
+       "type": "string",
+       "value": "enemy.rot-warden"
+      },
+      {
+       "name": "label",
+       "type": "string",
+       "value": "The Rot Warden"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

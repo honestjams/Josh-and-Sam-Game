@@ -45,8 +45,8 @@ export class DialogueScene extends Phaser.Scene {
   }
 
   private drawBox(): void {
-    const boxH = 150;
-    const boxY = DESIGN_HEIGHT - boxH - 16;
+    const boxH = 172;
+    const boxY = DESIGN_HEIGHT - boxH - 14;
     const g = this.add.graphics();
     g.fillStyle(PALETTE.ink, 0.92);
     g.fillRoundedRect(16, boxY, DESIGN_WIDTH - 32, boxH, 12);
@@ -92,13 +92,15 @@ export class DialogueScene extends Phaser.Scene {
     this.boxText.setText(this.view.text);
 
     if (this.view.choices.length > 0) {
-      const startY = DESIGN_HEIGHT - 90;
+      // Left-align choices below the prompt text so long options never clip.
+      let y = this.boxText.y + this.boxText.height + 10;
       this.view.choices.forEach((choice, i) => {
         const t = this.add
-          .text(DESIGN_WIDTH - 340, startY + i * 26, choice.label, {
+          .text(44, y, choice.label, {
             fontFamily: 'system-ui, sans-serif',
-            fontSize: '16px',
+            fontSize: '15px',
             color: '#f5e9d0',
+            wordWrap: { width: DESIGN_WIDTH - 100 },
           })
           .setInteractive({ useHandCursor: true });
         t.on('pointerover', () => {
@@ -110,6 +112,7 @@ export class DialogueScene extends Phaser.Scene {
           this.confirm();
         });
         this.choiceTexts.push(t);
+        y += t.height + 6;
       });
       this.highlight();
     } else {

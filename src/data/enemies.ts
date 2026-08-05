@@ -85,7 +85,7 @@ export const ENEMIES: Record<Id, EnemyDefinition> = {
   'enemy.rot-warden': {
     id: 'enemy.rot-warden',
     name: 'The Rot Warden',
-    stats: { maxHp: 120, maxMp: 30, attack: 16, defense: 9, speed: 8 },
+    stats: { maxHp: 55, maxMp: 30, attack: 11, defense: 6, speed: 8 },
     element: 'decay',
     skillIds: ['skill.spore-bite', 'skill.blight-wave'],
     ai: [
@@ -96,7 +96,12 @@ export const ENEMIES: Record<Id, EnemyDefinition> = {
     ],
     xpReward: 60,
     goldReward: 80,
-    drops: [{ itemId: 'item.grove-map', chance: 1 }],
+    // Guards the way to the Blighted Reach; yields the Grove Map and the Crown
+    // of Light (which unlocks the Dark Lord redemption path).
+    drops: [
+      { itemId: 'item.grove-map', chance: 1 },
+      { itemId: 'item.crown-of-light', chance: 1 },
+    ],
     spriteKey: 'enemy.rot-warden',
     isMiniboss: true,
   },
@@ -105,7 +110,7 @@ export const ENEMIES: Record<Id, EnemyDefinition> = {
   'enemy.mycelial-tyrant': {
     id: 'enemy.mycelial-tyrant',
     name: 'The Mycelial Tyrant',
-    stats: { maxHp: 320, maxMp: 60, attack: 24, defense: 14, speed: 12 },
+    stats: { maxHp: 110, maxMp: 60, attack: 15, defense: 8, speed: 12 },
     element: 'decay',
     skillIds: ['skill.spore-bite', 'skill.blight-wave'],
     ai: [

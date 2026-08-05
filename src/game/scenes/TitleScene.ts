@@ -1,7 +1,7 @@
 import * as Phaser from 'phaser';
 import { SceneKeys, DESIGN_WIDTH, DESIGN_HEIGHT, PALETTE } from '@/game/config';
 import { gameStore } from '@/core/store/GameStore';
-import { saveService, } from '@/core/services';
+import { saveService, audioService } from '@/core/services';
 import { DEFAULT_SLOT } from '@/core/save/SaveService';
 
 /**
@@ -14,6 +14,11 @@ export class TitleScene extends Phaser.Scene {
   }
 
   async create(): Promise<void> {
+    // Unlock the AudioContext on the first user gesture, then start title music.
+    const startAudio = () => { audioService.init(); audioService.playMusic('title'); };
+    this.input.once('pointerdown', startAudio);
+    this.input.keyboard?.once('keydown', startAudio);
+
     this.add.image(DESIGN_WIDTH / 2, DESIGN_HEIGHT / 2, 'bg.title');
 
     this.add

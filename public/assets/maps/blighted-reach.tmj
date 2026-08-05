@@ -1,0 +1,208 @@
+{
+ "compressionlevel": -1,
+ "width": 30,
+ "height": 17,
+ "tilewidth": 32,
+ "tileheight": 32,
+ "infinite": false,
+ "orientation": "orthogonal",
+ "renderorder": "right-down",
+ "tiledversion": "1.10.2",
+ "type": "map",
+ "version": "1.10",
+ "nextlayerid": 4,
+ "nextobjectid": 11,
+ "tilesets": [],
+ "properties": [
+  {
+   "name": "displayName",
+   "type": "string",
+   "value": "The Blighted Reach"
+  }
+ ],
+ "layers": [
+  {
+   "id": 1,
+   "name": "walkable",
+   "type": "objectgroup",
+   "visible": false,
+   "opacity": 1,
+   "x": 0,
+   "y": 0,
+   "draworder": "index",
+   "objects": [
+    {
+     "id": 1,
+     "name": "walk",
+     "type": "walk",
+     "x": 32,
+     "y": 384,
+     "width": 480,
+     "height": 128,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 2,
+     "name": "walk",
+     "type": "walk",
+     "x": 256,
+     "y": 288,
+     "width": 352,
+     "height": 96,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 3,
+     "name": "walk",
+     "type": "walk",
+     "x": 256,
+     "y": 320,
+     "width": 96,
+     "height": 96,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 4,
+     "name": "walk",
+     "type": "walk",
+     "x": 480,
+     "y": 384,
+     "width": 288,
+     "height": 64,
+     "rotation": 0,
+     "visible": true
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "name": "collision",
+   "type": "objectgroup",
+   "visible": false,
+   "opacity": 1,
+   "x": 0,
+   "y": 0,
+   "draworder": "index",
+   "objects": [
+    {
+     "id": 5,
+     "name": "wall",
+     "type": "wall",
+     "x": 0,
+     "y": 0,
+     "width": 960,
+     "height": 128,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 6,
+     "name": "wall",
+     "type": "wall",
+     "x": 736,
+     "y": 160,
+     "width": 224,
+     "height": 352,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 7,
+     "name": "wall",
+     "type": "wall",
+     "x": 512,
+     "y": 448,
+     "width": 320,
+     "height": 64,
+     "rotation": 0,
+     "visible": true
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "name": "objects",
+   "type": "objectgroup",
+   "visible": true,
+   "opacity": 1,
+   "x": 0,
+   "y": 0,
+   "draworder": "index",
+   "objects": [
+    {
+     "id": 8,
+     "name": "player-start",
+     "type": "player-start",
+     "point": true,
+     "x": 80,
+     "y": 432,
+     "width": 0,
+     "height": 0,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 9,
+     "name": "npc.dark-lord",
+     "type": "npc",
+     "point": true,
+     "x": 464,
+     "y": 304,
+     "width": 0,
+     "height": 0,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "npcId",
+       "type": "string",
+       "value": "npc.dark-lord"
+      },
+      {
+       "name": "render",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 10,
+     "name": "The Rootway",
+     "type": "transition",
+     "point": true,
+     "x": 48,
+     "y": 432,
+     "width": 0,
+     "height": 0,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "target",
+       "type": "string",
+       "value": "cave"
+      },
+      {
+       "name": "entryX",
+       "type": "int",
+       "value": 16
+      },
+      {
+       "name": "entryY",
+       "type": "int",
+       "value": 11
+      },
+      {
+       "name": "label",
+       "type": "string",
+       "value": "The Rootway"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

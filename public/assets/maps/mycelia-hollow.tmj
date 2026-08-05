@@ -1,131 +1,485 @@
 {
-  "compressionlevel": -1,
-  "width": 30,
-  "height": 17,
-  "tilewidth": 32,
-  "tileheight": 32,
-  "infinite": false,
-  "orientation": "orthogonal",
-  "renderorder": "right-down",
-  "tiledversion": "1.10.2",
-  "type": "map",
-  "version": "1.10",
-  "nextlayerid": 3,
-  "nextobjectid": 40,
-  "tilesets": [],
-  "properties": [
-    { "name": "displayName", "type": "string", "value": "The Mushroom Kingdom" },
-    { "name": "background", "type": "string", "value": "bg.village" }
-  ],
-  "layers": [
+ "compressionlevel": -1,
+ "width": 30,
+ "height": 17,
+ "tilewidth": 32,
+ "tileheight": 32,
+ "infinite": false,
+ "orientation": "orthogonal",
+ "renderorder": "right-down",
+ "tiledversion": "1.10.2",
+ "type": "map",
+ "version": "1.10",
+ "nextlayerid": 4,
+ "nextobjectid": 29,
+ "tilesets": [],
+ "properties": [
+  {
+   "name": "displayName",
+   "type": "string",
+   "value": "The Mushroom Kingdom"
+  }
+ ],
+ "layers": [
+  {
+   "id": 1,
+   "name": "walkable",
+   "type": "objectgroup",
+   "visible": false,
+   "opacity": 1,
+   "x": 0,
+   "y": 0,
+   "draworder": "index",
+   "objects": [
     {
-      "id": 1,
-      "name": "collision",
-      "type": "objectgroup",
-      "visible": false,
-      "opacity": 1,
-      "x": 0,
-      "y": 0,
-      "draworder": "index",
-      "objects": [
-        { "id": 1, "name": "wall-top", "type": "wall", "x": 0, "y": 0, "width": 960, "height": 32, "rotation": 0, "visible": true },
-        { "id": 2, "name": "wall-bottom", "type": "wall", "x": 0, "y": 512, "width": 960, "height": 32, "rotation": 0, "visible": true },
-        { "id": 3, "name": "wall-left", "type": "wall", "x": 0, "y": 0, "width": 32, "height": 544, "rotation": 0, "visible": true },
-        { "id": 4, "name": "wall-right", "type": "wall", "x": 928, "y": 0, "width": 32, "height": 544, "rotation": 0, "visible": true },
-        { "id": 5, "name": "elder-shrine", "type": "building", "x": 416, "y": 32, "width": 160, "height": 96, "rotation": 0, "visible": true },
-        { "id": 6, "name": "fen-shop", "type": "building", "x": 672, "y": 96, "width": 192, "height": 128, "rotation": 0, "visible": true },
-        { "id": 7, "name": "boletta-hut", "type": "building", "x": 256, "y": 416, "width": 160, "height": 96, "rotation": 0, "visible": true },
-        { "id": 8, "name": "pond", "type": "water", "x": 96, "y": 256, "width": 128, "height": 96, "rotation": 0, "visible": true }
-      ]
+     "id": 1,
+     "name": "walk",
+     "type": "walk",
+     "x": 320,
+     "y": 256,
+     "width": 544,
+     "height": 192,
+     "rotation": 0,
+     "visible": true
     },
     {
-      "id": 2,
-      "name": "objects",
-      "type": "objectgroup",
-      "visible": true,
-      "opacity": 1,
-      "x": 0,
-      "y": 0,
-      "draworder": "index",
-      "objects": [
-        {
-          "id": 10, "name": "player-start", "type": "player-start", "point": true,
-          "x": 496, "y": 400, "width": 0, "height": 0, "rotation": 0, "visible": true
-        },
-        {
-          "id": 11, "name": "Elder Morel", "type": "npc", "point": true,
-          "x": 496, "y": 144, "width": 0, "height": 0, "rotation": 0, "visible": true,
-          "properties": [{ "name": "npcId", "type": "string", "value": "npc.elder-morel" }]
-        },
-        {
-          "id": 12, "name": "Rustle", "type": "npc", "point": true,
-          "x": 240, "y": 304, "width": 0, "height": 0, "rotation": 0, "visible": true,
-          "properties": [{ "name": "npcId", "type": "string", "value": "npc.rustle" }]
-        },
-        {
-          "id": 17, "name": "The Mushroom King", "type": "npc", "point": true,
-          "x": 752, "y": 336, "width": 0, "height": 0, "rotation": 0, "visible": true,
-          "properties": [{ "name": "npcId", "type": "string", "value": "npc.mushroom-king" }]
-        },
-        {
-          "id": 13, "name": "Fen", "type": "npc", "point": true,
-          "x": 752, "y": 240, "width": 0, "height": 0, "rotation": 0, "visible": true,
-          "properties": [{ "name": "npcId", "type": "string", "value": "npc.fen" }]
-        },
-        {
-          "id": 14, "name": "Boletta", "type": "npc", "point": true,
-          "x": 304, "y": 400, "width": 0, "height": 0, "rotation": 0, "visible": true,
-          "properties": [{ "name": "npcId", "type": "string", "value": "npc.boletta" }]
-        },
-        {
-          "id": 15, "name": "Crafting Stump", "type": "prop", "point": true,
-          "x": 368, "y": 400, "width": 0, "height": 0, "rotation": 0, "visible": true,
-          "properties": [
-            { "name": "spriteKey", "type": "string", "value": "prop.crafting-stump" },
-            { "name": "action", "type": "string", "value": "crafting" }
-          ]
-        },
-        {
-          "id": 16, "name": "Training Post", "type": "prop", "point": true,
-          "x": 592, "y": 400, "width": 0, "height": 0, "rotation": 0, "visible": true,
-          "properties": [
-            { "name": "spriteKey", "type": "string", "value": "prop.training-post" },
-            { "name": "action", "type": "string", "value": "sparring" }
-          ]
-        },
-        {
-          "id": 20, "name": "Glow Cap", "type": "pickup", "point": true,
-          "x": 80, "y": 80, "width": 0, "height": 0, "rotation": 0, "visible": true,
-          "properties": [
-            { "name": "flag", "type": "string", "value": "picked_glowcap_1" },
-            { "name": "itemId", "type": "string", "value": "item.glow-cap" }
-          ]
-        },
-        {
-          "id": 21, "name": "Glow Cap", "type": "pickup", "point": true,
-          "x": 880, "y": 464, "width": 0, "height": 0, "rotation": 0, "visible": true,
-          "properties": [
-            { "name": "flag", "type": "string", "value": "picked_glowcap_2" },
-            { "name": "itemId", "type": "string", "value": "item.glow-cap" }
-          ]
-        },
-        {
-          "id": 22, "name": "Glow Cap", "type": "pickup", "point": true,
-          "x": 592, "y": 336, "width": 0, "height": 0, "rotation": 0, "visible": true,
-          "properties": [
-            { "name": "flag", "type": "string", "value": "picked_glowcap_3" },
-            { "name": "itemId", "type": "string", "value": "item.glow-cap" }
-          ]
-        },
-        {
-          "id": 30, "name": "To Amberwood Route", "type": "transition", "point": true,
-          "x": 912, "y": 272, "width": 0, "height": 0, "rotation": 0, "visible": true,
-          "properties": [
-            { "name": "target", "type": "string", "value": "amberwood-route" },
-            { "name": "label", "type": "string", "value": "Amberwood Route" }
-          ]
-        }
-      ]
+     "id": 2,
+     "name": "walk",
+     "type": "walk",
+     "x": 256,
+     "y": 192,
+     "width": 256,
+     "height": 64,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 3,
+     "name": "walk",
+     "type": "walk",
+     "x": 32,
+     "y": 224,
+     "width": 256,
+     "height": 96,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 4,
+     "name": "walk",
+     "type": "walk",
+     "x": 128,
+     "y": 320,
+     "width": 256,
+     "height": 128,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 5,
+     "name": "walk",
+     "type": "walk",
+     "x": 320,
+     "y": 416,
+     "width": 480,
+     "height": 96,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 6,
+     "name": "walk",
+     "type": "walk",
+     "x": 768,
+     "y": 256,
+     "width": 96,
+     "height": 192,
+     "rotation": 0,
+     "visible": true
     }
-  ]
+   ]
+  },
+  {
+   "id": 2,
+   "name": "collision",
+   "type": "objectgroup",
+   "visible": false,
+   "opacity": 1,
+   "x": 0,
+   "y": 0,
+   "draworder": "index",
+   "objects": [
+    {
+     "id": 7,
+     "name": "wall",
+     "type": "wall",
+     "x": 0,
+     "y": 0,
+     "width": 32,
+     "height": 544,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 8,
+     "name": "wall",
+     "type": "wall",
+     "x": 864,
+     "y": 0,
+     "width": 96,
+     "height": 544,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 9,
+     "name": "wall",
+     "type": "wall",
+     "x": 0,
+     "y": 352,
+     "width": 160,
+     "height": 192,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 10,
+     "name": "wall",
+     "type": "wall",
+     "x": 320,
+     "y": 256,
+     "width": 96,
+     "height": 64,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 11,
+     "name": "wall",
+     "type": "wall",
+     "x": 256,
+     "y": 288,
+     "width": 96,
+     "height": 64,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 12,
+     "name": "wall",
+     "type": "wall",
+     "x": 192,
+     "y": 320,
+     "width": 96,
+     "height": 64,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 13,
+     "name": "wall",
+     "type": "wall",
+     "x": 128,
+     "y": 352,
+     "width": 96,
+     "height": 64,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 14,
+     "name": "wall",
+     "type": "wall",
+     "x": 64,
+     "y": 384,
+     "width": 96,
+     "height": 96,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 15,
+     "name": "wall",
+     "type": "wall",
+     "x": 512,
+     "y": 384,
+     "width": 160,
+     "height": 96,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 16,
+     "name": "wall",
+     "type": "wall",
+     "x": 576,
+     "y": 160,
+     "width": 64,
+     "height": 96,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 17,
+     "name": "wall",
+     "type": "wall",
+     "x": 640,
+     "y": 128,
+     "width": 160,
+     "height": 128,
+     "rotation": 0,
+     "visible": true
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "name": "objects",
+   "type": "objectgroup",
+   "visible": true,
+   "opacity": 1,
+   "x": 0,
+   "y": 0,
+   "draworder": "index",
+   "objects": [
+    {
+     "id": 18,
+     "name": "player-start",
+     "type": "player-start",
+     "point": true,
+     "x": 464,
+     "y": 368,
+     "width": 0,
+     "height": 0,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 19,
+     "name": "npc.mushroom-king",
+     "type": "npc",
+     "point": true,
+     "x": 720,
+     "y": 272,
+     "width": 0,
+     "height": 0,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "npcId",
+       "type": "string",
+       "value": "npc.mushroom-king"
+      }
+     ]
+    },
+    {
+     "id": 20,
+     "name": "npc.elder-morel",
+     "type": "npc",
+     "point": true,
+     "x": 144,
+     "y": 272,
+     "width": 0,
+     "height": 0,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "npcId",
+       "type": "string",
+       "value": "npc.elder-morel"
+      }
+     ]
+    },
+    {
+     "id": 21,
+     "name": "npc.fen",
+     "type": "npc",
+     "point": true,
+     "x": 816,
+     "y": 432,
+     "width": 0,
+     "height": 0,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "npcId",
+       "type": "string",
+       "value": "npc.fen"
+      }
+     ]
+    },
+    {
+     "id": 22,
+     "name": "npc.boletta",
+     "type": "npc",
+     "point": true,
+     "x": 560,
+     "y": 336,
+     "width": 0,
+     "height": 0,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "npcId",
+       "type": "string",
+       "value": "npc.boletta"
+      }
+     ]
+    },
+    {
+     "id": 23,
+     "name": "npc.rustle",
+     "type": "npc",
+     "point": true,
+     "x": 208,
+     "y": 304,
+     "width": 0,
+     "height": 0,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "npcId",
+       "type": "string",
+       "value": "npc.rustle"
+      }
+     ]
+    },
+    {
+     "id": 24,
+     "name": "crafting",
+     "type": "prop",
+     "point": true,
+     "x": 592,
+     "y": 400,
+     "width": 0,
+     "height": 0,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "action",
+       "type": "string",
+       "value": "crafting"
+      },
+      {
+       "name": "spriteKey",
+       "type": "string",
+       "value": ""
+      }
+     ]
+    },
+    {
+     "id": 25,
+     "name": "pickup",
+     "type": "pickup",
+     "point": true,
+     "x": 80,
+     "y": 272,
+     "width": 0,
+     "height": 0,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "flag",
+       "type": "string",
+       "value": "picked_glowcap_1"
+      },
+      {
+       "name": "itemId",
+       "type": "string",
+       "value": "item.glow-cap"
+      }
+     ]
+    },
+    {
+     "id": 26,
+     "name": "pickup",
+     "type": "pickup",
+     "point": true,
+     "x": 784,
+     "y": 464,
+     "width": 0,
+     "height": 0,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "flag",
+       "type": "string",
+       "value": "picked_glowcap_2"
+      },
+      {
+       "name": "itemId",
+       "type": "string",
+       "value": "item.glow-cap"
+      }
+     ]
+    },
+    {
+     "id": 27,
+     "name": "pickup",
+     "type": "pickup",
+     "point": true,
+     "x": 368,
+     "y": 432,
+     "width": 0,
+     "height": 0,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "flag",
+       "type": "string",
+       "value": "picked_glowcap_3"
+      },
+      {
+       "name": "itemId",
+       "type": "string",
+       "value": "item.glow-cap"
+      }
+     ]
+    },
+    {
+     "id": 28,
+     "name": "The Rootway",
+     "type": "transition",
+     "point": true,
+     "x": 848,
+     "y": 368,
+     "width": 0,
+     "height": 0,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "target",
+       "type": "string",
+       "value": "cave"
+      },
+      {
+       "name": "entryX",
+       "type": "int",
+       "value": 26
+      },
+      {
+       "name": "entryY",
+       "type": "int",
+       "value": 13
+      },
+      {
+       "name": "label",
+       "type": "string",
+       "value": "The Rootway"
+      }
+     ]
+    }
+   ]
+  }
+ ]
 }
